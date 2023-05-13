@@ -8,7 +8,7 @@ You can build the Docker image using the Docker CLI:
 
 ```shell
 docker build -t upscale-image .
-
+```shell
 
 # Upscaling Photos
 To upscale photos, follow these steps:
