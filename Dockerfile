@@ -27,10 +27,10 @@ RUN bash -c "source /venv/bin/activate && pip install --no-cache-dir opencv-pyth
 RUN mkdir -p /app/models
 
 # Download the latest RRDB_Net model
-RUN wget -O /app/models/RRDB_ESRGAN_x4.pth https://github.com/xinntao/ESRGAN/releases/download/v0.4.4/RRDB_ESRGAN_x4.pth
+#RUN wget -O /app/models/RRDB_ESRGAN_x4.pth https://github.com/xinntao/ESRGAN/releases/download/v0.4.4/RRDB_ESRGAN_x4.pth
 
 # Download the latest ESRGAN model
-RUN wget -O /app/models/ESRGAN_SRx4_DF2K_official.pth https://github.com/xinntao/ESRGAN/releases/latest/download/ESRGAN_SRx4_DF2K_official.pth
+#RUN wget -O /app/models/ESRGAN_SRx4_DF2K_official.pth https://github.com/xinntao/ESRGAN/releases/latest/download/ESRGAN_SRx4_DF2K_official.pth
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
