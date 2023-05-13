@@ -1,5 +1,5 @@
 # Use an official PyTorch runtime as a parent image
-FROM pytorch/pytorch:1.9.0-cuda10.2-cudnn7-runtime
+FROM pytorch/pytorch:2.0.0-cuda11.7-cudnn8-runtime
 
 # Set the working directory in the container to /app
 WORKDIR /app
