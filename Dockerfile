@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Install apt-utils to address package configuration warning
-RUN apt-get install -y --no-install-recommends apt-utils && apt-get update  && apt-get upgrade -y
+RUN apt-get update  && apt-get install -y --no-install-recommends apt-utils &&  apt-get upgrade -y
 
 # Update the system and install OpenCV and other necessary libraries
 RUN apt-get install -y libgl1-mesa-glx wget
