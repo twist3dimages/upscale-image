@@ -3,9 +3,10 @@ import os
 import torch
 from model import RRDB_Net
 import numpy as np
+import argparse
 
 def upscale_image(img_path, output_path, model_path):
-    device = torch.device('cuda') # if you have a GPU, else use 'cpu'
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     model = RRDB_Net(3, 3, 64, 23, gc=32)
     model.load_state_dict(torch.load(model_path), strict=True)
     model.eval()
@@ -37,7 +38,14 @@ def upscale_images_in_dir(input_dir, output_dir, models_dir):
                               os.path.join(output_dir, output_img_name),
                               model_path)
 
-input_dir = 'path/to/your/input/directory'
-output_dir = 'path/to/your/output/directory'
-models_dir = 'path/to/your/models/directory'
-upscale_images_in_dir(input_dir, output_dir, models_dir)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Upscale images using RRDB_Net models')
+    parser.add_argument('--input', type=str, help='Path to the input directory')
+    parser.add_argument('--output', type=str, help='Path to the output directory')
+    parser.add_argument('--models', type=str, help='Path to the models directory')
+    args = parser.parse_args()
+
+    input_dir = args.input or '/input'
+    output_dir = args.output or '/output'
+    models_dir = args.models or '/app/models'
+    upscale_images_in_dir(input_dir, output_dir, models_dir)
