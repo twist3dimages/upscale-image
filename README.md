@@ -19,6 +19,7 @@ Run the Docker image, mounting the directory with the input photos to the /app/i
 
 ```shell
 docker run -it --rm -v /path/to/input:/app/input -v /path/to/output:/app/output upscale-image
+```
 Replace /path/to/input with the path to the directory containing the input photos on your host machine. Similarly, replace /path/to/output with the path to the directory where you want the upscaled photos to be saved.
 
 The script will process the photos and save the upscaled versions to the specified output directory.
