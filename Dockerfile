@@ -11,7 +11,7 @@ COPY . /app
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 # Update the system and install OpenCV and other necessary libraries
-RUN apt-get install -y libgl1-mesa-glx
+RUN apt-get install -y libgl1-mesa-glx wget
 
 # Create and activate the virtual environment
 RUN python -m venv /venv
@@ -24,10 +24,10 @@ RUN bash -c "source /venv/bin/activate && pip install --no-cache-dir --upgrade p
 RUN bash -c "source /venv/bin/activate && pip install --no-cache-dir opencv-python numpy"
 
 # Download RRDB_Net model
-RUN curl -L -o /app/models/RRDB_ESRGAN_x4.pth https://github.com/xinntao/ESRGAN/releases/download/v0.1.1/RRDB_ESRGAN_x4.pth
+RUN wget -O /app/models/RRDB_ESRGAN_x4.pth https://github.com/xinntao/ESRGAN/releases/download/v0.1.1/RRDB_ESRGAN_x4.pth
 
 # Download ESRGAN model
-RUN curl -L -o /app/models/ESRGAN_SRx4_DF2K_official-ff704c30.pth https://github.com/xinntao/ESRGAN/releases/download/v0.4.0/ESRGAN_SRx4_DF2K_official-ff704c30.pth
+RUN wget -O /app/models/ESRGAN_SRx4_DF2K_official-ff704c30.pth https://github.com/xinntao/ESRGAN/releases/download/v0.4.0/ESRGAN_SRx4_DF2K_official-ff704c30.pth
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
