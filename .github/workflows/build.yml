@@ -21,6 +21,6 @@ jobs:
 
       - name: Tag Docker Image
         run: docker tag upscale-image twist3dimages/upscale-image:latest
-        
+
       - name: Push Docker Image
         run: docker push twist3dimages/upscale-image:latest
