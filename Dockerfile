@@ -26,6 +26,12 @@ RUN bash -c "source /venv/bin/activate && pip install --no-cache-dir opencv-pyth
 # Create /app/models directory
 RUN mkdir -p /app/models
 
+# Set environment variables
+ENV CONFIG_HOME=/app
+ENV MODEL_DIR=/app/models
+ENV INPUT=/input
+ENV OUTPUT=/output
+
 # Download the latest RRDB_Net model
 #RUN wget -O /app/models/RRDB_ESRGAN_x4.pth https://github.com/xinntao/ESRGAN/releases/download/v0.4.4/RRDB_ESRGAN_x4.pth
 
