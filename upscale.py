@@ -35,7 +35,7 @@ def upscale_image(img_path, output_path, model_path):
     model = model.to(device)
 
     img = cv2.imread(img_path, cv2.IMREAD_COLOR)
-    img = img * 1.0 / 255
+    img = img * 1.0 / 255 # type: ignore
     img = torch.from_numpy(np.transpose(img[:, :, [2, 1, 0]], (2, 0, 1))).float()
     img_LR = img.unsqueeze(0)
     img_LR = img_LR.to(device)
