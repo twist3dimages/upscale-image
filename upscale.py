@@ -1,9 +1,31 @@
 ﻿import cv2
 import os
 import torch
-from model import RRDB_Net
+import torch.nn as nn
 import numpy as np
 import argparse
+
+class RRDB_Net(nn.Module):
+    def __init__(self, in_channels, out_channels, num_features, num_blocks, gc=32):
+        super(RRDB_Net, self).__init__()
+        # Define the architecture of RRDB_Net here
+
+        # Example architecture:
+        self.conv_first = nn.Conv2d(in_channels, num_features, kernel_size=3, stride=1, padding=1)
+
+        self.conv_blocks = nn.ModuleList()
+        for _ in range(num_blocks):
+            self.conv_blocks.append(RRDB(num_features, gc=gc))
+
+        self.conv_last = nn.Conv2d(num_features, out_channels, kernel_size=3, stride=1, padding=1)
+
+    def forward(self, x):
+        # Implement the forward pass of RRDB_Net here
+        out = self.conv_first(x)
+        for block in self.conv_blocks:
+            out = block(out)
+        out = self.conv_last(out)
+        return out
 
 def upscale_image(img_path, output_path, model_path):
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
