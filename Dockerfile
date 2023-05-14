@@ -11,7 +11,8 @@ COPY . /app
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 # Update the system and install OpenCV and other necessary libraries
-RUN apt-get install -y libgl1-mesa-glx wget
+RUN apt-get install -y libgl1-mesa-glx wget libglib2.0-0
+
 
 # Create and activate the virtual environment
 RUN python -m venv /venv
