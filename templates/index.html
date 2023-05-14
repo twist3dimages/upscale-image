@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload</title>
+</head>
+<body>
+  <h1>Upload Files</h1>
+  <form id="uploadForm" enctype="multipart/form-data" action="/" method="post">
+    <input type="file" id="fileInput" name="files" multiple>
+    <button type="submit">Upload</button>
+  </form>
+
+  {% if success %}
+    <h2>Output:</h2>
+    <div id="outputContainer">
+      <p>Files processed successfully!</p>
+    </div>
+  {% endif %}
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    const fileInput = document.getElementById('fileInput');
+
+    fileInput.addEventListener('change', () => {
+      const filesCount = fileInput.files.length;
+      const plural = filesCount > 1 ? 's' : '';
+      form.setAttribute('data-files-count', filesCount);
+      form.setAttribute('data-button-text', `Upload ${filesCount} File${plural}`);
+    });
+  </script>
+</body>
+</html>
+s

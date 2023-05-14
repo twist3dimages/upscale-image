@@ -40,6 +40,8 @@ ENV OUTPUT=/output
 
 # Make port 80 available to the world outside this container
 EXPOSE 80
+# Web UI Port
+EXPOSE 5000
 
 # Run upscale.py when the container launches
 CMD ["python", "-m", "upscale", "--input", "$INPUT", "--output", "$OUTPUT"]
