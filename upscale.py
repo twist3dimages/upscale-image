@@ -38,6 +38,24 @@ def upscale_images_in_dir(input_dir, output_dir, models_dir):
                               os.path.join(output_dir, output_img_name),
                               model_path)
 
+def process_uploaded_files(files, output_dir, models_dir):
+    input_dir = '/app/uploads'
+    if not os.path.exists(input_dir):
+        os.makedirs(input_dir)
+
+    # Save uploaded files to the input directory
+    for file in files:
+        file_path = os.path.join(input_dir, file.filename)
+        file.save(file_path)
+
+    # Process the uploaded files
+    upscale_images_in_dir(input_dir, output_dir, models_dir)
+
+    # Clean up the uploaded files
+    for file in os.listdir(input_dir):
+        file_path = os.path.join(input_dir, file)
+        os.remove(file_path)
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Upscale images using RRDB_Net models')
     parser.add_argument('--input', type=str, help='Path to the input directory')
@@ -48,4 +66,21 @@ if __name__ == '__main__':
     input_dir = args.input or '/input'
     output_dir = args.output or '/output'
     models_dir = args.models or '/app/models'
-    upscale_images_in_dir(input_dir, output_dir, models_dir)
+
+    # Check if the script is run with command-line arguments or through the web UI
+    if input_dir == '/input' and output_dir == '/output' and models_dir == '/app/models':
+        from flask import Flask, render_template, request
+
+        app = Flask(__name__)
+
+        @app.route('/', methods=['GET', 'POST'])
+        def upload_page():
+            if request.method == 'POST':
+                files = request.files.getlist('files')
+                process_uploaded_files(files, output_dir, models_dir)
+                return render_template('index.html', success=True)
+            return render_template('index.html', success=False)
+
+        if __name__ == '__main__':
+            app.run(debug=True)
+
