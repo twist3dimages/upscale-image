@@ -1,0 +1,22 @@
+﻿name: Auto-Merge Dependabot Bump Requests
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  auto_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Merge Dependabot PR
+        uses: octokit/request-action@v2.x
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          route: PUT /repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/merge
+          mediaType: '{"previews":["sailor-v-preview"]}'
